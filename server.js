@@ -5,8 +5,12 @@ var expressGraphQL = require('express-graphql').graphqlHTTP;
 var graphql = require('graphql');
 
 var schema = graphql.buildSchema(`
+  type Post {
+    text: String
+  }
   type User {
     name: String
+    posts: [Post]
   }
   type Query {
     user: User
