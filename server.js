@@ -1,5 +1,7 @@
 var express = require('express');
-var expressGraphQL = require('express-graphql');
+var expressGraphQL = require('express-graphql').graphqlHTTP;
+// THE LINE OF CODE ABOVE OR COMMENTED-OUT BELOW ARE BOTH ADEQUATE
+// var { graphqlHTTP } = require('express-graphql');
 var graphql = require('graphql');
 
 var schema = graphql.buildSchema(`
