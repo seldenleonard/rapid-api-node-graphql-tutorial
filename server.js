@@ -1,8 +1,8 @@
-var express = require('express');
-var expressGraphQL = require('express-graphql').graphqlHTTP;
+import express from 'express';
+import { graphqlHTTP as expressGraphQL } from 'express-graphql';
 // THE LINE OF CODE ABOVE OR COMMENTED-OUT BELOW ARE BOTH ADEQUATE
-// var { graphqlHTTP } = require('express-graphql');
-var graphql = require('graphql');
+// import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'graphql';
 
 // _db mocks out a simple database
 const _db = {
@@ -18,12 +18,12 @@ const _db = {
       text: "Hello World! This is my first post."
     }
   ]
-}
+};
 // userHandler mocks out a simple ORM
 const userHandler = {
   getUser(id) {
     for (let i = 0; i < _db.users.length; i++) {
-      if(_db.users[i].id === id) {
+      if (_db.users[i].id === id) {
         return _db.users[i];
       }
     }
@@ -38,7 +38,7 @@ const userHandler = {
     return userPosts;
   }
 }
-const schema = graphql.buildSchema(`
+const schema = buildSchema(`
   type Post {
     text: String
   }
@@ -54,12 +54,12 @@ const rootResolver = {
   user: (args) => {
     const user_id = args.id;
     const user = userHandler.getUser(user_id);
-    console.log(userHandler.getUser(user_id))
+    console.log(userHandler.getUser(user_id));
     const posts = userHandler.getPosts(user_id);
     return {
       name: user.name,
       posts: posts
-    }
+    };
   }
 };
 var app = express();
